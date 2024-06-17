@@ -8,4 +8,14 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     port: process.env.DB_PORT,
 });
 
-module.exports = sequelize;
+const connectUserDB = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log("MySQL database successfully connected");
+    } catch (err) {
+        console.error("Unable to connect to the MySQL database:", err);
+        process.exit(1);
+    }
+};
+
+module.exports = { sequelize, connectUserDB };

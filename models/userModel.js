@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/userDB");
+const { sequelize } = new require("../config/userDB");
 
 const User = sequelize.define('User', {
     id: {
@@ -36,18 +36,26 @@ const User = sequelize.define('User', {
 
     isStaff: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
         allowNull: true,
     },
 
     isAdmin: {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
         allowNull: true,
     },
+    books: {
+        type: DataTypes.TEXT, // Storing as TEXT, // Storing as JSON for simplicity
+        defaultValue: [],
+        allowNull: true,
+    }
+
 }, {
     timestamps: true,
 });
 
 
 module.exports = User;
+
+

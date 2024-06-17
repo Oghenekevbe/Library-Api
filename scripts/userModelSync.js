@@ -1,4 +1,4 @@
-const sequelize = require('../config/userDB'); // Correctly import sequelize instance
+const { sequelize } = require('../config/userDB'); // Correctly import sequelize instance
 const User = require('../models/userModel'); // Correctly import the User model
 
 (async () => {
