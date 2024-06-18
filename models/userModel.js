@@ -15,8 +15,7 @@ const User = sequelize.define('User', {
 
     username: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
+        allowNull: true,
     },
 
     email: {
@@ -36,24 +35,32 @@ const User = sequelize.define('User', {
 
     isStaff: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
         allowNull: true,
     },
 
     isAdmin: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
         allowNull: true,
     },
     books: {
-        type: DataTypes.TEXT, // Storing as TEXT, // Storing as JSON for simplicity
-        defaultValue: [],
+        type: DataTypes.STRING, // Store as a string
+        defaultValue: '{}', // Default value is an empty object
         allowNull: true,
-    }
+        set(value) {
+            this.setDataValue('books', JSON.stringify(value)); // Serialize object to string
+        },
+        get() {
+            const value = this.getDataValue('books');
+            return value ? JSON.parse(value) : {}; // Deserialize string to object
+        }
+    },
 
 }, {
     timestamps: true,
+
 });
+
+
 
 
 module.exports = User;
